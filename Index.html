@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente de Namorados</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 50px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 10px;
+        }
+        header h1 {
+            font-size: 36px;
+        }
+        header p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #sobre-btn {
+            background-color: #000;  /* Fundo preto */
+            color: white;            /* Letra branca */
+            font-size: 18px;         /* Tamanho da fonte */
+            padding: 15px 30px;      /* Espaçamento interno */
+            border: none;            /* Sem borda */
+            border-radius: 50px;     /* Bordas arredondadas */
+            cursor: pointer;        /* Cursor de pointer */
+            transition: all 0.3s ease; /* Transição suave para o hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+            text-transform: uppercase; /* Letras maiúsculas */
+            font-weight: bold;       /* Deixar o texto em negrito */
+        }
+
+        #sobre-btn:hover {
+            background-color: #333;  /* Muda a cor para um cinza escuro no hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais forte ao passar o mouse */
+        }
+
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            justify-content: center;
+            margin-top: 50px;
+            position: relative;
+        }
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel img {
+            height: 300px;
+            width: auto;
+            max-width: 100%;
+            object-fit: cover;
+            margin: 0 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-controls button {
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .carousel-controls button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .lembrancas {
+            margin-top: 50px;
+        }
+        .lembranca {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .lembranca img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .lembranca h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .lembranca p {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .lembranca:hover {
+            background-color: #f9f9f9;
+        }
+        .add-lembranca {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .add-lembranca button {
+            padding: 15px 30px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .add-lembranca button:hover {
+            background-color: #333;
+        }
+        .add-lembranca-form {
+            margin-top: 30px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .add-lembranca-form input,
+        .add-lembranca-form textarea,
+        .add-lembranca-form select {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .add-lembranca-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .add-lembranca-form input[type="file"] {
+            width: auto;
+        }
+        .add-lembranca-form button {
+            padding: 10px;
+            background-color: #1c221c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-lembranca-form button:hover {
+            background-color: #252926;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Nosso Amor, Nossa História</h1>
+        <p>Comemore cada momento juntos, em cada data, em cada sorriso.</p>
+        <button id="sobre-btn" onclick="window.location.href='sobre.html'">Sobre</button>
+    </header>
+
+    <div class="container">
+        <div class="carousel">
+            <div class="carousel-wrapper" id="carousel-images">
+                <!-- As imagens serão carregadas aqui dinamicamente -->
+            </div>
+            <div class="carousel-controls">
+                <button id="prev"><i class="fas fa-chevron-left"></i></button>
+                <button id="next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="lembrancas" id="lembrancas-container">
+            <h2>Lembranças</h2>
+            <!-- Lembranças serão adicionadas aqui -->
+        </div>
+
+        <div class="add-lembranca">
+            <button id="add-lembranca-btn"><i class="fas fa-plus"></i></button>
+        </div>
+
+        <div class="add-lembranca-form" id="add-lembranca-form">
+            <input type="text" id="lembranca-titulo" placeholder="Título da Lembrança">
+            <textarea id="lembranca-descricao" placeholder="Descrição da Lembrança"></textarea>
+            <input type="file" id="lembranca-imagem" accept="image/*">
+            <input type="date" id="lembranca-data" placeholder="Data da Lembrança">
+            <button id="salvar-lembranca">Salvar Lembrança</button>
+        </div>
+    </div>
+
+    <script>
+        const carouselWrapper = document.getElementById('carousel-images');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        let images = [];
+        let currentIndex = 0;
+
+        // Carregar a lista de imagens do servidor
+        fetch('/imagens-lista')
+            .then(response => response.json())
+            .then(data => {
+                images = data;
+                images.forEach(image => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = `/imagens/${image}`;
+                    carouselWrapper.appendChild(imgElement);
+                });
+                moveCarousel();
+            });
+
+        function moveCarousel() {
+            carouselWrapper.style.transform = `translateX(-${currentIndex * 640}px)`;
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            moveCarousel();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            moveCarousel();
+        });
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            moveCarousel();
+        }, 3000);
+
+        const addLembrancaBtn = document.getElementById('add-lembranca-btn');
+        const addLembrancaForm = document.getElementById('add-lembranca-form');
+        const salvarLembrancaBtn = document.getElementById('salvar-lembranca');
+        const lembrancasContainer = document.getElementById('lembrancas-container');
+
+        addLembrancaBtn.addEventListener('click', () => {
+            addLembrancaForm.style.display = 'flex';
+        });
+
+        salvarLembrancaBtn.addEventListener('click', () => {
+            const titulo = document.getElementById('lembranca-titulo').value;
+            const descricao = document.getElementById('lembranca-descricao').value;
+            const imagem = document.getElementById('lembranca-imagem').files[0];
+            const data = document.getElementById('lembranca-data').value;
+
+            if (titulo && descricao && data) {
+                const lembrancaDiv = document.createElement('div');
+                lembrancaDiv.classList.add('lembranca');
+
+                const imagemElement = document.createElement('img');
+                if (imagem) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagemElement.src = e.target.result;
+                        lembrancaDiv.appendChild(imagemElement);
+                    };
+                    reader.readAsDataURL(imagem);
+                } else {
+                    imagemElement.src = "https://via.placeholder.com/100";
+                    lembrancaDiv.appendChild(imagemElement);
+                }
+
+                const textContainer = document.createElement('div');
+                const h3 = document.createElement('h3');
+                h3.textContent = `${titulo} - ${new Date(data).toLocaleDateString()}`;
+                const p = document.createElement('p');
+                p.textContent = descricao;
+
+                textContainer.appendChild(h3);
+                textContainer.appendChild(p);
+                lembrancaDiv.appendChild(textContainer);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Excluir';
+                deleteBtn.style.backgroundColor = 'black';
+                deleteBtn.style.color = 'white';
+                deleteBtn.style.border = 'none';
+                deleteBtn.style.padding = '10px';
+                deleteBtn.style.borderRadius = '5px';
+                deleteBtn.style.cursor = 'pointer';
+
+                deleteBtn.addEventListener('click', () => {
+                    lembrancaDiv.remove();
+                });
+
+                lembrancaDiv.appendChild(deleteBtn);
+
+                lembrancasContainer.appendChild(lembrancaDiv);
+                addLembrancaForm.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
